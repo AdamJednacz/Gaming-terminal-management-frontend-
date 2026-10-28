@@ -1,0 +1,7 @@
+@mixin card-style() {
+  background-color: var(--app-bg-container);
+  border: 1px solid var(--app-border-secondary);
+  border-radius: var(--app-border-radius);
+  padding: var(--app-content-padding);
+  box-sizing: border-box;
+}
