@@ -1,18 +1,50 @@
-import { createBrowserRouter, type RouteObject } from "react-router-dom";
+import { createBrowserRouter, type RouteObject } from 'react-router-dom';
 
-import { RoutePath } from "../common/enums";
-import HomeLayout from "../layout/homeLayout/HomeLayout";
+import HomeLayout from '../layout/homeLayout/HomeLayout';
+import { RoutePath } from '../common/enums/routePath';
+import LoginPage from './LoginPage';
+import DashboardPage from './DashboardPage';
+import LocationsPage from './LocationsPage';
+import TerminalsPage from './TerminalsPage';
+import IncidentsPage from './IncidentsPage';
+import SettingsPage from './SettingsPage';
+import AuthorizationPageLayout from '../layout/authLayout/AuthorizationPageLayout';
+import RegisterPage from './RegisterPage';
+import ProtectedRoute from '../utils/ProtectedRoute';
 
 export const routes: RouteObject[] = [
   {
-    path: RoutePath.HOME,
-    element: <HomeLayout />,
+    element: (
+      <ProtectedRoute canBeAuthorized={false} canBeUnauthorized={true} />
+    ),
     children: [
-      { path: RoutePath.DASHBOARD, element: <p>Dashboard</p> },
-      { path: RoutePath.LOCATIONS, element: <p>Locations</p> },
-      { path: RoutePath.TERMINALS, element: <p>Terminals</p> },
-      { path: RoutePath.INCIDENTS, element: <p>Incidents</p> },
-      { path: RoutePath.SETTINGS, element: <p>Settings</p> },
+      {
+        element: <AuthorizationPageLayout />,
+        children: [
+          { path: RoutePath.SIGN_IN, element: <LoginPage /> },
+          { path: RoutePath.SIGN_UP, element: <RegisterPage /> },
+        ],
+      },
+    ],
+  },
+
+  {
+    element: (
+      <ProtectedRoute canBeAuthorized={true} canBeUnauthorized={false} />
+    ),
+
+    children: [
+      {
+        path: RoutePath.HOME,
+        element: <HomeLayout />,
+        children: [
+          { path: RoutePath.DASHBOARD, element: <DashboardPage /> },
+          { path: RoutePath.LOCATIONS, element: <LocationsPage /> },
+          { path: RoutePath.TERMINALS, element: <TerminalsPage /> },
+          { path: RoutePath.INCIDENTS, element: <IncidentsPage /> },
+          { path: RoutePath.SETTINGS, element: <SettingsPage /> },
+        ],
+      },
     ],
   },
 

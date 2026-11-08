@@ -1,19 +1,19 @@
 import type { LucideProps } from 'lucide-react';
 
 export const appThemeTokens = {
-  // primary (niebieski akcent)
+
   primary: '#2f6fe0',
   primaryHover: '#4c86e8',
   primaryLight: '#7cb0ff',
   primaryBg: '#16243b',
   primaryBgStrong: '#1c3a6b',
 
-  // accent (wykresy, wyróżnienia)
+
   accent: '#4c86e8',
   accentBg: '#122440',
   accentTextColor: '#ffffff',
 
-  // semantyczne
+
   success: '#5fd68f',
   successBg: '#0f2a1b',
   successBorder: '#1d4d31',
@@ -38,7 +38,7 @@ export const appThemeTokens = {
   neutralBg: '#1a2232',
   neutralBorder: '#2c3a52',
 
-  // tła
+
   bgBase: '#0d1421',
   bgOverlay: '#0a101b',
   bgLayout: '#0d1421',
@@ -50,21 +50,20 @@ export const appThemeTokens = {
   bgTableHeader: '#101828',
   bgRowHover: '#16243b',
 
-  // obramowania
   border: '#26344d',
   borderSecondary: '#213049',
   borderLayout: '#1f2a3c',
   borderSubtle: '#1a2538',
   checkboxBorderColor: '#2a3a55',
 
-  // tekst
+
   textBase: '#eef2f8',
   text: '#d7dee9',
   textSecondary: '#8592a6',
   textTertiary: '#7d8aa0',
   textQuaternary: '#6f7c90',
+  textDark: '#000000',
 
-  // typografia
   fontFamily: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif",
   fontSize: '13px',
   fontSizeSm: '11px',
@@ -73,11 +72,10 @@ export const appThemeTokens = {
   borderRadiusSm: '6px',
   borderRadiusXs: '4px',
 
-  // dodatkowe tła
   bgContainerLighter: '#1a2538',
   bgContainerDarker: '#0f1726',
 
-  // layout
+
   topBarHeight: '56px',
   footerHeight: '40px',
   globalContentHeight:
@@ -98,13 +96,13 @@ export const appThemeTokens = {
   0 9px 28px 8px rgba(0, 0, 0, 0.2)
 `,
 
-  // font weights
+
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightSemiBold: 600,
   fontWeightBold: 700,
 
-  // z-index
+
   siderZIndex: 100,
   headerZIndex: 99,
   loadingOverlayZIndex: 20,
@@ -112,10 +110,11 @@ export const appThemeTokens = {
   maxZIndex: 999,
 };
 
-// kolory statusów terminali i incydentów (tekst / tło tagu / obramowanie)
 type TagColors = { color: string; bg: string; border: string };
 
-const tag = (key: 'success' | 'warning' | 'orange' | 'error' | 'info' | 'neutral'): TagColors => ({
+const tag = (
+  key: 'success' | 'warning' | 'orange' | 'error' | 'info' | 'neutral',
+): TagColors => ({
   color: appThemeTokens[key],
   bg: appThemeTokens[`${key}Bg`],
   border: appThemeTokens[`${key}Border`],
@@ -173,8 +172,7 @@ export const iconSizes = {
   md: 16,
   lg: 20,
   xl: 24,
-  logo:35,
-
+  logo: 35,
 };
 
 export type TextType =
@@ -197,7 +195,6 @@ export const iconSharedProps: LucideProps = {
   size: iconSizes.md,
 };
 
-
 function toKebabCase(input: string): string {
   return input
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
@@ -206,30 +203,26 @@ function toKebabCase(input: string): string {
     .toLowerCase();
 }
 
-/**
- * Generate CSS variables object
- */
 function createThemeCssVariables(
   prefix = 'app-',
   tokens = appThemeTokens,
 ): Record<string, string> {
   const cssVars: Record<string, string> = {};
 
-  // design tokens
+
   Object.entries(tokens).forEach(([key, value]) => {
     cssVars[`--${prefix}${toKebabCase(key)}`] = String(value);
   });
 
-  // breakpoints
   Object.entries(appBreakpoints).forEach(([key, value]) => {
     cssVars[`--${prefix}breakpoint-${key}`] = `${value}px`;
   });
 
-  // spacings (padding / margin)
+
   Object.entries(appSpacings).forEach(([key, value]) => {
     cssVars[`--${prefix}${toKebabCase(key)}`] = `${value}px`;
   });
-  // icon sizes
+
   Object.entries(iconSizes).forEach(([key, value]) => {
     cssVars[`--${prefix}icon-size-${key}`] = `${value}px`;
   });
@@ -253,9 +246,7 @@ const injectCssVariables = (vars: Record<string, string>) => {
   document.head.appendChild(style);
 };
 
-/**
- * Apply CSS variables globally to :root
- */
+
 export const applyCssVariables = () => {
   const vars = createThemeCssVariables();
   injectCssVariables(vars);

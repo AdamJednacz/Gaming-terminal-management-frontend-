@@ -1,8 +1,9 @@
-import { ConfigProvider, App as AntdApp } from "antd";
-import "./App.css";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./pages";
-import { themeConfig } from "./utils/theme";
+import { ConfigProvider, App as AntdApp } from 'antd';
+import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './pages';
+import { themeConfig } from './utils/theme';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
     >
       <AntdApp>
         <div className="app-container">
-          <RouterProvider router={router} />
+          <AuthProvider>
+            <RouterProvider router={router} />
+          </AuthProvider>
         </div>
       </AntdApp>
     </ConfigProvider>

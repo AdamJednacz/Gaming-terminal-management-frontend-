@@ -1,17 +1,18 @@
-import { Button, Drawer, Grid, Layout } from "antd";
-import Sider from "antd/es/layout/Sider";
-import styles from "./HomeLayout.module.scss";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Gamepad2 } from "lucide-react";
+import { Button, Drawer, Grid, Layout } from 'antd';
+import Sider from 'antd/es/layout/Sider';
+import styles from './HomeLayout.module.scss';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Gamepad2 } from 'lucide-react';
 import {
   appThemeTokens,
   iconSharedProps,
   iconSizes,
-} from "../../utils/styles-config";
-import HomeSiderMenu from "./HomeSiderMenu";
-import { Header } from "antd/es/layout/layout";
-import { Menu } from "lucide-react";
-import { useState } from "react";
+} from '../../utils/styles-config';
+import HomeSiderMenu from './HomeSiderMenu';
+import { Header } from 'antd/es/layout/layout';
+import { Menu } from 'lucide-react';
+import { useState } from 'react';
+import Logo from '../../reusableComponents/logo/Logo';
 const { useBreakpoint } = Grid;
 
 const HomeLayout = () => {
@@ -21,22 +22,14 @@ const HomeLayout = () => {
 
   const navigate = useNavigate();
   const pathname = location.pathname
-    .split("/")
+    .split('/')
     .filter(Boolean)
     .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1));
 
   const renderHeader = (
     <>
       <Header className={styles.header}>
-        <div className={styles.logo}>
-          <span className={styles.logoIcon}>
-            <Gamepad2
-              size={iconSizes.logo}
-              color={`${appThemeTokens.primaryLight}`}
-            />
-          </span>
-          <span className={styles.logoText}>GTMS</span>
-        </div>
+        <Logo />
         <Button
           className="iconBtnCentered accent"
           color="default"
@@ -61,15 +54,7 @@ const HomeLayout = () => {
   const renderSider = (
     <Sider className={styles.sider} width={appThemeTokens.siderWidth}>
       <div className={styles.siderInner}>
-        <div className={styles.logo}>
-          <span className={styles.logoIcon}>
-            <Gamepad2
-              size={iconSizes.logo}
-              color={`${appThemeTokens.primaryLight}`}
-            />
-          </span>
-          <span className={styles.logoText}>GTMS</span>
-        </div>
+        <Logo />
         <HomeSiderMenu onClick={(path) => navigate(path)} />
       </div>
     </Sider>

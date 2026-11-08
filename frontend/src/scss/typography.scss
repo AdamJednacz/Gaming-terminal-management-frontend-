@@ -1,20 +1,6 @@
-// ===================================
-// TYPOGRAPHY SYSTEM
-// ===================================
-// CSS variables + element defaults + utility classes
-// Principles:
-// - Elements (h1-h6, p) carry semantic meaning + default margins
-// - Utility classes (.t-*) carry visual styling only — NO margins
-// - <span> never receives margins from typography
-// - Combine freely:
-//     <h2>                      → h2 look + h2 margins
-//     <span class="t-h2">       → h2 look, no margins
-//     <p class="t-secondary">   → body margins + secondary color
-//     <span class="t-footnote"> → footnote look, no margins
-// ===================================
 
 :root {
-  // Font sizes
+
   --typo-h1-size: 2.5rem;
   --typo-h2-size: 2rem;
   --typo-h3-size: 1.5rem;
@@ -24,36 +10,31 @@
   --typo-body-size: var(--app-font-size, 14px);
   --typo-footnote-size: var(--app-font-size-sm, 12px);
 
-  // Line heights
+
   --typo-heading-line-height: 1.2;
   --typo-body-line-height: 1.5;
   --typo-footnote-line-height: 1.4;
 
-  // Font weights
+
   --typo-heading-weight: 600;
   --typo-h6-weight: 500;
   --typo-body-weight: 400;
   --typo-body-strong-weight: 600;
 
-  // Margins (applied to elements only, never to .t-* classes)
   --typo-heading-margin-top: 0.6em;
   --typo-heading-margin-bottom: 0.6em;
   --typo-paragraph-margin-top: 0;
   --typo-paragraph-margin-bottom: 0.6em;
 
-  // Letter spacing
+
   --typo-heading-letter-spacing: -0.02em;
   --typo-h6-letter-spacing: 0.05em;
 
-  // Colors
+
   --typo-color-secondary: var(--app-text-secondary);
   --typo-color-danger: var(--app-error);
   --typo-color-accent: var(--app-accent);
 }
-
-// ===================================
-// ELEMENT DEFAULTS — visual styling + margins
-// ===================================
 
 h1,
 h2,
@@ -101,10 +82,7 @@ p {
   margin-bottom: var(--typo-paragraph-margin-bottom);
 }
 
-// ===================================
-// UTILITY CLASSES — visual styling only, NO margins
-// Use on <span> for marginless text, or on <p>/<h*> to override appearance
-// ===================================
+
 
 .t-h1 {
   font-size: var(--typo-h1-size);
@@ -187,18 +165,14 @@ p {
   color: var(--typo-color-accent);
 }
 
-// ===================================
-// TEXT UTILITIES
-// ===================================
 
-// Single-line text truncation
 .t-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-// Multi-line text truncation (use --lines variable, default 2)
+
 .t-clamp {
   display: -webkit-box;
   -webkit-line-clamp: var(--typo-clamp-lines, 2);
