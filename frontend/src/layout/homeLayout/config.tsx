@@ -1,6 +1,6 @@
-import type { JSX } from "react/jsx-runtime";
-import { RoutePath } from "../../common/enums";
-import { iconSharedProps } from "../../utils/styles-config";
+import type { JSX } from 'react/jsx-runtime';
+
+import { iconSharedProps } from '../../utils/styles-config';
 import {
   LayoutDashboard,
   MapPin,
@@ -8,7 +8,8 @@ import {
   Settings,
   TriangleAlert,
   type LucideProps,
-} from "lucide-react";
+} from 'lucide-react';
+import { RoutePath } from '../../common/enums/routePath';
 
 export type HomeLayoutMenuItemType = {
   key: number;
@@ -18,7 +19,7 @@ export type HomeLayoutMenuItemType = {
 };
 
 const getActiveKey = (pathName: string) => {
-  const segments = pathName.split("/").filter(Boolean);
+  const segments = pathName.split('/').filter(Boolean);
   const section = segments[2] ?? segments[segments.length - 1];
   switch (section) {
     case RoutePath.DASHBOARD:
@@ -44,31 +45,31 @@ const getItems = (): HomeLayoutMenuItemType[] => {
     {
       key: 1,
       icon: <LayoutDashboard {...sharedProps} />,
-      label: "Dashboard",
+      label: 'Dashboard',
       path: RoutePath.DASHBOARD,
     },
     {
       key: 2,
       icon: <Monitor {...sharedProps} />,
-      label: "Terminals",
+      label: 'Terminals',
       path: RoutePath.TERMINALS,
     },
     {
       key: 3,
       icon: <MapPin {...sharedProps} />,
-      label: "Locations",
+      label: 'Locations',
       path: RoutePath.LOCATIONS,
     },
     {
       key: 4,
       icon: <TriangleAlert {...sharedProps} />,
-      label: "Incidents",
+      label: 'Incidents',
       path: RoutePath.INCIDENTS,
     },
     {
       key: 5,
       icon: <Settings {...sharedProps} />,
-      label: "Settings",
+      label: 'Settings',
       path: RoutePath.SETTINGS,
     },
   ];

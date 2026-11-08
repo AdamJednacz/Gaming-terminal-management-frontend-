@@ -1,4 +1,4 @@
-@use "/src/scss/typography.scss" as *;
+@use '/src/scss/typography.scss' as *;
 
 :root {
   --app-scrollbar-size: 12px;
@@ -31,6 +31,7 @@ body {
 }
 
 * {
+  box-sizing: border-box;
   scrollbar-width: thin;
   scrollbar-color: var(--app-scrollbar-thumb) var(--app-scrollbar-track);
 }

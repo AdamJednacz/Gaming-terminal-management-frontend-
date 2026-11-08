@@ -1,0 +1,30 @@
+@use '/src/scss/breakepoints.scss' as *;
+.submitButton {
+  background-color: var(--app-accent-text-color);
+  color: var(--app-text-dark);
+  font-weight: 600;
+  width: 100%;
+}
+
+.form {
+  :global {
+    .ant-form-item-label > label {
+      font-weight: 500;
+      color: #eef2f8;
+    }
+  }
+}
+.form {
+  @media (max-width: $lg) {
+    :global(.ant-form-item) {
+      margin-bottom: 12px;
+    }
+
+    :global(.ant-form-item-label) {
+      padding-bottom: 4px;
+    }
+  }
+}
+.errorAlert {
+  margin-bottom: var(--app-margin-md);
+}
