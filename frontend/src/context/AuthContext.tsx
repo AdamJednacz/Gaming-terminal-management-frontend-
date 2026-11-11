@@ -30,7 +30,7 @@ interface AuthContextType {
 // UseEffect for authorizeUserSession() checking is user Authorized =>
 
 //Feature works : Add RefreshToken which means if user is still on app when token expired -> get refreshtoekn as another jwt token
-
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -78,11 +78,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!token) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUser(null);
       setIsLoading(false);
       return;
     }
     authorizeUserSession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const logout = () => {

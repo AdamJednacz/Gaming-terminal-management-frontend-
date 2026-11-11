@@ -2,3 +2,19 @@
   color: var(--app-text-secondary);
   font-size: var(--app-font-size-lg);
 }
+.normal {
+  color: var(--app-text-base);
+  font-size: var(--app-font-size-lg);
+}
+.text {
+  margin-bottom: 0 !important;
+}
+.lg {
+  font-size: var(--app-font-size-lg);
+}
+.md {
+  font-size: var(--app-font-size-md);
+}
+.sm {
+  font-size: var(--app-font-size-sm);
+}

@@ -8,7 +8,7 @@ import { getApiErrorMessages } from '../../utils/getApiErrorMessages';
 
 const Login = () => {
   const [form] = Form.useForm();
-  const { login, user } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isProcessing, setIsProcessing] = useState<boolean>();
