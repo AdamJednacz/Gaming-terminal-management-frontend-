@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { RoutePath } from '../common/enums/routePath';
 import { Spin } from 'antd';
@@ -7,7 +7,6 @@ interface Props {
   canBeAuthorized: boolean;
   canBeUnauthorized: boolean;
 }
-
 
 const ProtectedRoute = ({ canBeAuthorized, canBeUnauthorized }: Props) => {
   const { isAuthorized, isLoading } = useAuth();

@@ -8,7 +8,7 @@ import type { AuthSignUpSchema } from '../../common/schemas/authSchemas';
 import { useState } from 'react';
 import { getApiErrorMessages } from '../../utils/getApiErrorMessages';
 const Register = () => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<AuthSignUpSchema>();
   const [error, setError] = useState<string[]>([]);
   const { mutate, isPending: isProcessing } = useSignUpMutation();
   const navigate = useNavigate();
@@ -24,13 +24,13 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = async () => {
-    const values = await form.getFieldsValue();
+  const handleSubmit = () => {
+    const values = form.getFieldsValue();
     handleCreateAccount(values);
   };
   return (
     <>
-      <Form
+      <Form<AuthSignUpSchema>
         className={styles.form}
         layout="vertical"
         form={form}
