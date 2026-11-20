@@ -5,7 +5,11 @@ import { RoutePath } from '../common/enums/routePath';
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
+let onUnauthorized: (() => void) | null = null;
 
+export const setUnauthorizedHandler = (handler: (() => void) | null) => {
+  onUnauthorized = handler;
+};
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem(StorageItems.AUTH_TOKEN);
   if (token) config.headers.Authorization = `Bearer ${token}`;
@@ -17,10 +21,9 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (
       error.response?.status === 401 &&
-      !error.config?.url?.includes(`${RoutePath.SIGN_IN}`)
+      !error.config?.url?.includes(RoutePath.SIGN_IN)
     ) {
-      localStorage.removeItem(StorageItems.AUTH_TOKEN);
-      window.location.href = RoutePath.SIGN_IN;
+      onUnauthorized?.();
     }
     return Promise.reject(error);
   },
