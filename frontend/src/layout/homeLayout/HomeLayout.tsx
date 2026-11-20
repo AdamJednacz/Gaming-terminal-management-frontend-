@@ -16,12 +16,14 @@ import Logo from '../../reusableComponents/logo/Logo';
 import { useAuth } from '../../hooks/useAuth';
 import { UserOutlined } from '@ant-design/icons';
 import { HomeLayoutConfig, type HomeLayoutMenuItemType } from './config';
+import LogoutModal from '../../components/modals/logoutModal/LogoutModal';
 
 const { useBreakpoint } = Grid;
 
 const HomeLayout = () => {
   const [mobileSiderOpen, setMobileSiderOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const screens = useBreakpoint();
   const { user, logout } = useAuth();
@@ -63,7 +65,7 @@ const HomeLayout = () => {
         color="danger"
         variant="solid"
         icon={<LogOut size={iconSizes.md} />}
-        onClick={() => logout()}
+        onClick={() => setIsModalOpen(true)}
       >
         Log out
       </Button>
@@ -147,23 +149,30 @@ const HomeLayout = () => {
   );
 
   return (
-    <Layout style={{ background: appThemeTokens.bgBase }}>
-      {screens.lg ? renderSider : renderHeader}
+    <>
       <Layout style={{ background: appThemeTokens.bgBase }}>
-        <div className={`${styles.content} ${!screens.lg && styles.mobile}`}>
-          <div className={styles.pageHeader}>
-            <div>
-              <p className={styles.pageHeaderPathName}>Home / {pathname}</p>
-              <h4 className={styles.pageHeaderSectionName}>{pathname}</h4>
+        {screens.lg ? renderSider : renderHeader}
+        <Layout style={{ background: appThemeTokens.bgBase }}>
+          <div className={`${styles.content} ${!screens.lg && styles.mobile}`}>
+            <div className={styles.pageHeader}>
+              <div>
+                <p className={styles.pageHeaderPathName}>Home / {pathname}</p>
+                <h4 className={styles.pageHeaderSectionName}>{pathname}</h4>
+              </div>
+              {screens.lg && renderUserAvatar}
             </div>
-            {screens.lg && renderUserAvatar}
+            <div className={styles.outlet}>
+              <Outlet />
+            </div>
           </div>
-          <div className={styles.outlet}>
-            <Outlet />
-          </div>
-        </div>
+        </Layout>
       </Layout>
-    </Layout>
+      <LogoutModal
+        isOpen={isModalOpen}
+        onOk={() => logout()}
+        onCancel={() => setIsModalOpen(false)}
+      />
+    </>
   );
 };
 

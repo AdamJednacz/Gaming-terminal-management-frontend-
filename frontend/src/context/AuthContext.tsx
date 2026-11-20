@@ -12,6 +12,8 @@ import { AuthAPI } from '../api/auth';
 import type { TokenModel } from '../common/models/tokens.model';
 import { RoutePath } from '../common/enums/routePath';
 import { UserRole } from '../common/enums/userRoles';
+import SessionExpiredModal from '../components/modals/sessionExpiredModal/SessionExpiredModal';
+import { setUnauthorizedHandler } from '../utils/requests';
 
 interface AuthContextType {
   user: UserModel | null;
@@ -39,12 +41,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
   const [user, setUser] = useState<UserModel | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
   const resetAuth = useCallback(() => {
     localStorage.removeItem(StorageItems.AUTH_TOKEN);
     setToken(null);
     setUser(null);
   }, []);
 
+  const expireSession = useCallback(() => {
+    resetAuth();
+    setIsSessionExpired(true);
+  }, [resetAuth]);
+
+  useEffect(() => {
+    setUnauthorizedHandler(expireSession);
+    return () => setUnauthorizedHandler(null);
+  }, [expireSession]);
   const isAdmin = user?.role === UserRole.ADMIN;
   const isTechnician = user?.role === UserRole.TECHNICIAN;
   const isOperator = user?.role === UserRole.OPERATOR;
@@ -107,5 +119,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     isAuthorized: !!token,
     isLoading,
   };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+      <SessionExpiredModal
+        isOpen={isSessionExpired}
+        onOk={() => setIsSessionExpired(false)}
+      />
+    </AuthContext.Provider>
+  );
 };
